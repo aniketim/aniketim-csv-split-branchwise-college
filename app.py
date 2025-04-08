@@ -7,10 +7,17 @@ from openpyxl import load_workbook
 from openpyxl.styles import Font
 from openpyxl.utils import get_column_letter
 
+# Page setup
 st.set_page_config(page_title="CSV to Branch-wise Excel", layout="wide")
 st.title("📑 CSV to Branch-wise Excel Generator")
 
-uploaded_files = st.file_uploader("Upload one or more CSV files", type=["csv"], accept_multiple_files=True)
+# Upload section
+st.markdown("### 📤 Upload your CSV files")
+uploaded_files = st.file_uploader(
+    label="Upload one or more CSV files (Hold Ctrl or Shift to select multiple)",
+    type=["csv"],
+    accept_multiple_files=True
+)
 
 if uploaded_files:
     for uploaded_file in uploaded_files:
@@ -59,18 +66,18 @@ if uploaded_files:
             overview_ws["A1"] = "Overview"
             overview_ws["A1"].font = Font(bold=True, size=16)
 
-            # Row 2: Empty line
+            # Space below "Overview"
             overview_ws["A3"] = "Test Title:"
             overview_ws["B3"] = test_title
 
             overview_ws["A5"] = "Subject Name:"
             overview_ws["B5"] = subject_name
 
-            # Heading
+            # Heading for branch-wise count
             overview_ws["A7"] = "Branch-wise Count"
             overview_ws["A7"].font = Font(bold=True)
 
-            # Column headers
+            # Table headers
             overview_ws.cell(row=8, column=1, value="Branch").font = Font(bold=True)
             overview_ws.cell(row=8, column=2, value="Count").font = Font(bold=True)
 
